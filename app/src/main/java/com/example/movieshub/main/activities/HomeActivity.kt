@@ -1,4 +1,4 @@
-package com.example.movieshub.activities
+package com.example.movieshub.main.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

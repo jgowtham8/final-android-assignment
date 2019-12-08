@@ -7,4 +7,5 @@
     <color name="colorTitle">#0C274C</color>
     <color name="pureWhite">#FFFFFF</color>
     <color name="editTextBorder">#696F74</color>
+    <color name="navigationFontColor">#A8B1CC</color>
 </resources>

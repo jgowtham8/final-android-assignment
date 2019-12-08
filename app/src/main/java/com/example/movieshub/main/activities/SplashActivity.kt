@@ -1,4 +1,4 @@
-package com.example.movieshub.activities
+package com.example.movieshub.main.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,8 @@ import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
 import com.example.movieshub.R
+import com.example.movieshub.main.activities.user.AddAccountActivity
+import com.example.movieshub.main.activities.user.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -25,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         //splash time
         Handler().postDelayed({
             //start main activity
-            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+            startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
             //finish this activity
             finish()
         },3000)

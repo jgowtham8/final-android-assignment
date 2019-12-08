@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/navigationNotification"
+            android:icon="@drawable/vector_drawable_notifications_none"
+            android:title="Popular"/>
+
+    <item android:id="@+id/navigationProject"
+          android:icon="@drawable/vector_drawable_folder"
+          android:title="Search"/>
+
+    <item android:id="@+id/navigationInbox"
+          android:icon="@drawable/vector_drawable_inbox"
+          android:title="Favourites"/>
+
+    <item android:id="@+id/navigationWallet"
+          android:icon="@drawable/vector_drawable_wallet"
+          android:title="Upcoming"/>
+</menu>
