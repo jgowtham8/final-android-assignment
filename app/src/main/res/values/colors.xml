@@ -8,4 +8,6 @@
     <color name="pureWhite">#FFFFFF</color>
     <color name="editTextBorder">#696F74</color>
     <color name="navigationFontColor">#A8B1CC</color>
+
+    <color name="movieTitle">#000000</color>
 </resources>
