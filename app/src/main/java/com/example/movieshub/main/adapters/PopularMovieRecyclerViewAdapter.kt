@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.movieshub.R
 import com.example.movieshub.main.interfaces.RecyclerViewItemClickListener
 import com.example.movieshub.main.models.PopularMoviesModel
+import com.example.movieshub.main.models.Results
 import kotlinx.android.synthetic.main.widget_popular_movies.view.*
 
-class PopularMovieRecyclerViewAdapter (private var dataList: ArrayList<PopularMoviesModel>, private val context: Context,
+class PopularMovieRecyclerViewAdapter (private var dataList: ArrayList<Results>, private val context: Context,
                                        private val recyclerViewItemClickListener: RecyclerViewItemClickListener
 ) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,8 +24,8 @@ class PopularMovieRecyclerViewAdapter (private var dataList: ArrayList<PopularMo
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.title.text = dataList[0].results[position].title
-        holder.desc.text = dataList[0].results[position].overview
+        holder.title.text = dataList[position].title
+        holder.desc.text = dataList[position].overview
         holder.rowFrame.setOnClickListener {
             recyclerViewItemClickListener.onClicked(position)
         }

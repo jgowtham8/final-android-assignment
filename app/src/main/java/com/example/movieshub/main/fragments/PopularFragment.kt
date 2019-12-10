@@ -14,6 +14,7 @@ import com.example.movieshub.R
 import com.example.movieshub.main.adapters.PopularMovieRecyclerViewAdapter
 import com.example.movieshub.main.interfaces.RecyclerViewItemClickListener
 import com.example.movieshub.main.models.PopularMoviesModel
+import com.example.movieshub.main.models.Results
 import com.example.movieshub.main.services.retrofit.ApiClient
 import kotlinx.android.synthetic.main.fragment_popular.*
 import retrofit2.Call
@@ -27,8 +28,9 @@ private const val ARG_PARAM2 = "param2"
 
 class PopularFragment : Fragment() {
 
-    lateinit var loadingEffect: ProgressDialog
+    //lateinit var loadingEffect: ProgressDialog
     var dataArr = ArrayList<PopularMoviesModel>()
+    var responseResults = ArrayList<Results>()
 
     // : Rename and change types of parameters
     private var param1: String? = null
@@ -45,10 +47,11 @@ class PopularFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loadingEffect = ProgressDialog(requireContext())
-        loadingEffect.setTitle("Loading..")
-        loadingEffect.setCancelable(false)
-        loadingEffect.show()
+//        loadingEffect = ProgressDialog(requireContext())
+//        loadingEffect.setTitle("Loading..")
+//        loadingEffect.setCancelable(false)
+//        loadingEffect.show()
+
         loadPageContents()
     }
 
@@ -56,7 +59,7 @@ class PopularFragment : Fragment() {
 
         getData()
         popularRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
-        popularRecyclerView.adapter = PopularMovieRecyclerViewAdapter(dataArr,requireContext(), object : RecyclerViewItemClickListener {
+        popularRecyclerView.adapter = PopularMovieRecyclerViewAdapter(responseResults,requireContext(), object : RecyclerViewItemClickListener {
             override fun onClicked(cityIndex: Int) {
             }
         })
@@ -81,14 +84,14 @@ class PopularFragment : Fragment() {
         call.enqueue(object : Callback<PopularMoviesModel> {
 
             override fun onResponse(call: Call<PopularMoviesModel>?, response: Response<PopularMoviesModel>?) {
-                loadingEffect.dismiss()
+                //loadingEffect.dismiss()
 
-                dataArr.add(response?.body()!!)
-                popularRecyclerView.adapter?.notifyDataSetChanged()
+                responseResults = response?.body()!!.results
+                //popularRecyclerView.adapter?.notifyDataSetChanged()
             }
 
             override fun onFailure(call: Call<PopularMoviesModel>?, t: Throwable?) {
-                loadingEffect.dismiss()
+                //loadingEffect.dismiss()
             }
 
         })
