@@ -12,8 +12,11 @@ import com.example.movieshub.main.interfaces.RecyclerViewItemClickListener
 import com.example.movieshub.main.models.Results
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.widget_popular_movies_small.view.*
+import kotlinx.android.synthetic.main.widget_popular_movies_small.view.movieDesc
+import kotlinx.android.synthetic.main.widget_popular_movies_small.view.movieIcon
+import kotlinx.android.synthetic.main.widget_popular_movies_small.view.movieTitle
 
-class PopularMovieRecyclerViewAdapter (private var dataList: List<Results>, private val context: Context,
+class PopularMovieRecyclerViewAdapter (private var dataList: ArrayList<Results>, private val context: Context,
                                        private val recyclerViewItemClickListener: RecyclerViewItemClickListener
 ) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,25 +32,48 @@ class PopularMovieRecyclerViewAdapter (private var dataList: List<Results>, priv
         return dataList.size
     }
 
+    override fun getItemId(position: Int): Long {
+       return position.toLong()
+    }
+
     override fun getItemViewType(position: Int): Int {
         var type = 0//normal
-        if(position == 0){
+        if((position == 0) || (position == 6)){
             type = 1//big
         }
         return type
-        //return super.getItemViewType(position)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //holder.title.text = dataList[position].name
+        if (position < 6){
+            holder.title.text = dataList[position].title
+        }
+        else{
+            holder.title.text = dataList[position].name
+        }
+
         holder.desc.text = dataList[position].overview
 
         var iconName = dataList[position].poster_path
-        if (position == 0){
+        if ((position == 0) || (position == 6)){
             iconName = dataList[position].backdrop_path
         }
         val url = "https://image.tmdb.org/t/p/w500$iconName"
-        Picasso.get().load(url).into(holder.icon)
+
+        if ((position == 0) || (position == 6)){
+            Picasso.get().load(url).fit().centerCrop().into(holder.icon)
+        }
+        else{
+            Picasso.get().load(url).into(holder.icon)
+        }
+
+        if (position == 0){
+            holder.catHeading.text = "Movies"
+        }
+        if (position == 6){
+            holder.catHeading.text = "TV Series"
+        }
+
         holder.rowFrame.setOnClickListener {
             recyclerViewItemClickListener.onClicked(position)
         }
@@ -57,6 +83,8 @@ class PopularMovieRecyclerViewAdapter (private var dataList: List<Results>, priv
 class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     val title: TextView = view.movieTitle
     val desc: TextView = view.movieDesc
+    val catHeading:TextView = view.categoryTitle
     val icon: ImageView = view.movieIcon
     val rowFrame: View = view
+
 }

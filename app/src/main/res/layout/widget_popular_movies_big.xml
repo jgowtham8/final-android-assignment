@@ -11,30 +11,46 @@
         android:layout_height="wrap_content"
         app:contentPadding="10dp">
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/categoryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textColor="@color/movieTitle"
+                android:gravity="center"
+                android:textSize="20sp"/>
+
             <TextView
                 android:id="@+id/movieTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Movie Name"
-                android:textColor="@color/movieTitle"/>
+                android:layout_marginTop="7dp"
+                android:textColor="@color/movieTitle"
+                style="@style/movieTitle"/>
 
             <ImageView
                 android:id="@+id/movieIcon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="350dp"
+                android:layout_height="197dp"
                 android:src="@drawable/sample"
-                android:contentDescription="No Image"/>
+                android:layout_marginTop="7dp"
+                android:contentDescription="No Image"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:id="@+id/movieDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:maxLines="3"
+                android:maxLines="2"
                 android:text="An astronaut travels to the outer edges of the solar system to find his father and unravel a mystery that threatens the survival of Earth. In doing so, he uncovers secrets which challenge the nature of human existence and our place in the cosmos."/>
 
         </LinearLayout>

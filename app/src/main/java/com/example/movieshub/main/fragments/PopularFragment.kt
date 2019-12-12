@@ -28,7 +28,9 @@ class PopularFragment : Fragment() {
 
     //lateinit var loadingEffect: ProgressDialog
     var dataArr = ArrayList<PopularMoviesTvModel>()
-    var responseResults = ArrayList<Results>()
+    var responseResultsMovie = ArrayList<Results>()
+    var responseResultsTV = ArrayList<Results>()
+    var totalResponse = ArrayList<Results>()
 
     // : Rename and change types of parameters
     private var param1: String? = null
@@ -51,15 +53,33 @@ class PopularFragment : Fragment() {
 //        loadingEffect.show()
 
         loadPageContents()
-        test.text = responseResults.size.toString()
+        popularSwipeRefresh?.setOnRefreshListener {
+            totalResponse.clear()
+            loadPageContents()
+            popularSwipeRefresh.isRefreshing = false
+        }
+        //test.text = responseResults.size.toString()
     }
 
     private fun loadPageContents() {
 
         getDataOfPopMovie()
         getDataOfPopTV()
+
+        var a = 0
+        while (a < responseResultsMovie.size){
+            totalResponse.add(responseResultsMovie[a])
+            a++
+        }
+
+        var b = 0
+        while (b < responseResultsTV.size){
+            totalResponse.add(responseResultsTV[b])
+            b++
+        }
+
         popularRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
-        popularRecyclerView.adapter = PopularMovieRecyclerViewAdapter(responseResults,requireContext(), object : RecyclerViewItemClickListener {
+        popularRecyclerView.adapter = PopularMovieRecyclerViewAdapter(totalResponse,requireContext(), object : RecyclerViewItemClickListener {
             override fun onClicked(cityIndex: Int) {
             }
         })
@@ -85,10 +105,10 @@ class PopularFragment : Fragment() {
 
             override fun onResponse(call: Call<PopularMoviesTvModel>?, response: Response<PopularMoviesTvModel>?) {
                 //loadingEffect.dismiss()
-
+                responseResultsMovie.clear()
                 var i = 0
                 while (i < 6){
-                    responseResults.add(response?.body()!!.results[i])
+                    responseResultsMovie.add(response?.body()!!.results[i])
                     i++
                 }
 
@@ -108,10 +128,10 @@ class PopularFragment : Fragment() {
 
             override fun onResponse(call: Call<PopularMoviesTvModel>?, response: Response<PopularMoviesTvModel>?) {
                 //loadingEffect.dismiss()
-
+                responseResultsTV.clear()
                 var i = 0
                 while (i < 6){
-                    responseResults.add(response?.body()!!.results[i])
+                    responseResultsTV.add(response?.body()!!.results[i])
                     i++
                 }
                 //popularRecyclerView.adapter?.notifyDataSetChanged()
