@@ -51,6 +51,16 @@
                     android:maxLines="2"
                     android:text="An astronaut travels to the outer edges of the solar system to find his father and unravel a mystery that threatens the survival of Earth. In doing so, he uncovers secrets which challenge the nature of human existence and our place in the cosmos."/>
 
+                <Button
+                    android:id="@+id/btnSeeMore"
+                    android:layout_width="350dp"
+                    android:layout_height="60dp"
+                    android:layout_alignBottom="@+id/movieIcon"
+                    android:background="#9000"
+                    android:text="See More"
+                    android:visibility="gone"
+                    android:textColor="@android:color/white"/>
+
             </LinearLayout>
 
         </LinearLayout>

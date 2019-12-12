@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.movieshub.R
@@ -80,7 +81,12 @@ class PopularFragment : Fragment() {
 
         popularRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         popularRecyclerView.adapter = PopularMovieRecyclerViewAdapter(totalResponse,requireContext(), object : RecyclerViewItemClickListener {
-            override fun onClicked(cityIndex: Int) {
+            override fun onClickedFrame(id: Int, isMovie: Boolean) {
+                Toast.makeText(requireContext(),"Frame Clicked.",Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onClickedSeeMore(id: Int, isMovie: Boolean) {
+                Toast.makeText(requireContext(),"Btn Clicked.",Toast.LENGTH_SHORT).show()
             }
         })
 

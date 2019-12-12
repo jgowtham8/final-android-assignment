@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,7 @@ import com.example.movieshub.main.interfaces.RecyclerViewItemClickListener
 import com.example.movieshub.main.models.Results
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.widget_popular_movies_small.view.*
+import kotlinx.android.synthetic.main.widget_popular_movies_small.view.categoryTitle
 import kotlinx.android.synthetic.main.widget_popular_movies_small.view.movieDesc
 import kotlinx.android.synthetic.main.widget_popular_movies_small.view.movieIcon
 import kotlinx.android.synthetic.main.widget_popular_movies_small.view.movieTitle
@@ -74,8 +76,17 @@ class PopularMovieRecyclerViewAdapter (private var dataList: ArrayList<Results>,
             holder.catHeading.text = "TV Series"
         }
 
+        var isMovie = true
+        if (position > 5){
+            isMovie = false
+        }
+
         holder.rowFrame.setOnClickListener {
-            recyclerViewItemClickListener.onClicked(position)
+            recyclerViewItemClickListener.onClickedFrame(dataList[position].id, isMovie)
+        }
+        holder.seeMore.setOnClickListener {
+
+            recyclerViewItemClickListener.onClickedSeeMore(dataList[position].id, isMovie)
         }
     }
 }
@@ -85,6 +96,7 @@ class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     val desc: TextView = view.movieDesc
     val catHeading:TextView = view.categoryTitle
     val icon: ImageView = view.movieIcon
+    val seeMore:Button = view.btnSeeMore
     val rowFrame: View = view
 
 }

@@ -36,14 +36,29 @@
                 android:textColor="@color/movieTitle"
                 style="@style/movieTitle"/>
 
-            <ImageView
-                android:id="@+id/movieIcon"
-                android:layout_width="350dp"
-                android:layout_height="197dp"
-                android:src="@drawable/sample"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                android:contentDescription="No Image"
-                android:layout_gravity="center"/>
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/movieIcon"
+                    android:layout_width="350dp"
+                    android:layout_height="197dp"
+                    android:src="@drawable/sample"
+                    android:contentDescription="No Image"/>
+
+                <Button
+                    android:id="@+id/btnSeeMore"
+                    android:layout_width="350dp"
+                    android:layout_height="60dp"
+                    android:layout_alignBottom="@+id/movieIcon"
+                    android:background="#9000"
+                    android:text="See More"
+                    android:textColor="@android:color/white"/>
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/movieDesc"
