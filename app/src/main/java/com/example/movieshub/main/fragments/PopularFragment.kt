@@ -1,8 +1,5 @@
 package com.example.movieshub.main.fragments
 
-import android.app.ProgressDialog
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,9 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieshub.R
 import com.example.movieshub.main.adapters.PopularMovieRecyclerViewAdapter
 import com.example.movieshub.main.interfaces.RecyclerViewItemClickListener
-import com.example.movieshub.main.models.PopularMoviesModel
+import com.example.movieshub.main.models.PopularMoviesTvModel
 import com.example.movieshub.main.models.Results
-import com.example.movieshub.main.services.retrofit.ApiClient
+import com.example.movieshub.main.services.retrofit.ApiClientPopMovie
+import com.example.movieshub.main.services.retrofit.ApiClientPopTV
 import kotlinx.android.synthetic.main.fragment_popular.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,7 +27,7 @@ private const val ARG_PARAM2 = "param2"
 class PopularFragment : Fragment() {
 
     //lateinit var loadingEffect: ProgressDialog
-    var dataArr = ArrayList<PopularMoviesModel>()
+    var dataArr = ArrayList<PopularMoviesTvModel>()
     var responseResults = ArrayList<Results>()
 
     // : Rename and change types of parameters
@@ -53,11 +51,13 @@ class PopularFragment : Fragment() {
 //        loadingEffect.show()
 
         loadPageContents()
+        test.text = responseResults.size.toString()
     }
 
     private fun loadPageContents() {
 
-        getData()
+        getDataOfPopMovie()
+        getDataOfPopTV()
         popularRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         popularRecyclerView.adapter = PopularMovieRecyclerViewAdapter(responseResults,requireContext(), object : RecyclerViewItemClickListener {
             override fun onClicked(cityIndex: Int) {
@@ -79,18 +79,45 @@ class PopularFragment : Fragment() {
             PopularFragment()
     }
 
-    private fun getData() {
-        val call: Call<PopularMoviesModel> = ApiClient.getClient.getInfo("c774f71cefc589b364526565067fbbc7")
-        call.enqueue(object : Callback<PopularMoviesModel> {
+    private fun getDataOfPopMovie() {
+        val call: Call<PopularMoviesTvModel> = ApiClientPopMovie.getClient.getInfo("c774f71cefc589b364526565067fbbc7")
+        call.enqueue(object : Callback<PopularMoviesTvModel> {
 
-            override fun onResponse(call: Call<PopularMoviesModel>?, response: Response<PopularMoviesModel>?) {
+            override fun onResponse(call: Call<PopularMoviesTvModel>?, response: Response<PopularMoviesTvModel>?) {
                 //loadingEffect.dismiss()
 
-                responseResults = response?.body()!!.results
+                var i = 0
+                while (i < 6){
+                    responseResults.add(response?.body()!!.results[i])
+                    i++
+                }
+
                 //popularRecyclerView.adapter?.notifyDataSetChanged()
             }
 
-            override fun onFailure(call: Call<PopularMoviesModel>?, t: Throwable?) {
+            override fun onFailure(call: Call<PopularMoviesTvModel>?, t: Throwable?) {
+                //loadingEffect.dismiss()
+            }
+
+        })
+    }
+
+    private fun getDataOfPopTV() {
+        val call: Call<PopularMoviesTvModel> = ApiClientPopTV.getClient.getInfo("c774f71cefc589b364526565067fbbc7")
+        call.enqueue(object : Callback<PopularMoviesTvModel> {
+
+            override fun onResponse(call: Call<PopularMoviesTvModel>?, response: Response<PopularMoviesTvModel>?) {
+                //loadingEffect.dismiss()
+
+                var i = 0
+                while (i < 6){
+                    responseResults.add(response?.body()!!.results[i])
+                    i++
+                }
+                //popularRecyclerView.adapter?.notifyDataSetChanged()
+            }
+
+            override fun onFailure(call: Call<PopularMoviesTvModel>?, t: Throwable?) {
                 //loadingEffect.dismiss()
             }
 

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 // http://www.json2kotlin.com
 
-class PopularMoviesModel(
+class PopularMoviesTvModel(
 
     @SerializedName("page") var page : Int = 0,
     @SerializedName("total_results") var total_results : Int = 0,
@@ -24,7 +24,8 @@ data class Results (
     @SerializedName("original_language") var original_language : String? = null,
     @SerializedName("original_title") var original_title :String? = null,
     @SerializedName("genre_ids") var genre_ids : ArrayList<Int>,
-    @SerializedName("title") var title : String? = null,
+    @SerializedName("title") var title : String? = null,//for movies
+    @SerializedName("name") var name : String? = null,//for tv series
     @SerializedName("vote_average") var vote_average : Double = 0.toDouble(),
     @SerializedName("overview") var overview : String? = null,
     @SerializedName("release_date") var release_date : String? = null

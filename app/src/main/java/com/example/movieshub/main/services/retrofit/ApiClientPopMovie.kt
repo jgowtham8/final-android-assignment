@@ -6,10 +6,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ApiClient {
+object ApiClientPopMovie {
     //var BASE_URL:String="https://jsonplaceholder.typicode.com/"
     var BASE_URL:String="https://api.themoviedb.org/3/"
-    val getClient: ApiInterface
+    val getClient: ApiInterfacePopMovie
         get() {
 
             val gson = GsonBuilder()
@@ -25,7 +25,7 @@ object ApiClient {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-            return retrofit.create(ApiInterface::class.java)
+            return retrofit.create(ApiInterfacePopMovie::class.java)
 
         }
 }
