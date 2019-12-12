@@ -1,5 +1,6 @@
 package com.example.movieshub.main.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,12 +10,15 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.movieshub.R
+import com.example.movieshub.main.activities.SeeMoreActivity
 import com.example.movieshub.main.adapters.PopularMovieRecyclerViewAdapter
+import com.example.movieshub.main.helpers.Const
 import com.example.movieshub.main.interfaces.RecyclerViewItemClickListener
 import com.example.movieshub.main.models.PopularMoviesTvModel
 import com.example.movieshub.main.models.Results
 import com.example.movieshub.main.services.retrofit.ApiClientPopMovie
 import com.example.movieshub.main.services.retrofit.ApiClientPopTV
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_popular.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -83,10 +87,16 @@ class PopularFragment : Fragment() {
         popularRecyclerView.adapter = PopularMovieRecyclerViewAdapter(totalResponse,requireContext(), object : RecyclerViewItemClickListener {
             override fun onClickedFrame(id: Int, isMovie: Boolean) {
                 Toast.makeText(requireContext(),"Frame Clicked.",Toast.LENGTH_SHORT).show()
+
             }
 
             override fun onClickedSeeMore(id: Int, isMovie: Boolean) {
-                Toast.makeText(requireContext(),"Btn Clicked.",Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(),"Btn Clicked.",Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireContext(),SeeMoreActivity::class.java)
+                intent.putExtra("id",id)
+                intent.putExtra("isMovie",isMovie)
+                startActivity(intent)
+                //overridePendingTransition(R.anim.slide_bottomlayer_display, R.anim.keep_active)
             }
         })
 
@@ -106,7 +116,7 @@ class PopularFragment : Fragment() {
     }
 
     private fun getDataOfPopMovie() {
-        val call: Call<PopularMoviesTvModel> = ApiClientPopMovie.getClient.getInfo("c774f71cefc589b364526565067fbbc7")
+        val call: Call<PopularMoviesTvModel> = ApiClientPopMovie.getClient.getInfo(Const.API_KEY,1)
         call.enqueue(object : Callback<PopularMoviesTvModel> {
 
             override fun onResponse(call: Call<PopularMoviesTvModel>?, response: Response<PopularMoviesTvModel>?) {
@@ -129,7 +139,7 @@ class PopularFragment : Fragment() {
     }
 
     private fun getDataOfPopTV() {
-        val call: Call<PopularMoviesTvModel> = ApiClientPopTV.getClient.getInfo("c774f71cefc589b364526565067fbbc7")
+        val call: Call<PopularMoviesTvModel> = ApiClientPopTV.getClient.getInfo(Const.API_KEY,1)
         call.enqueue(object : Callback<PopularMoviesTvModel> {
 
             override fun onResponse(call: Call<PopularMoviesTvModel>?, response: Response<PopularMoviesTvModel>?) {
