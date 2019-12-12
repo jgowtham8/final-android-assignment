@@ -14,7 +14,7 @@ import com.example.movieshub.main.models.Results
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.widget_popular_movies_small.view.*
 
-class SeeMoreRecyclerViewAdapter (private var dataList: ArrayList<Results>, private val context: Context,
+class SeeMoreRecyclerViewAdapter (private var dataList: ArrayList<Results>, private var isMovies: Boolean,private val context: Context,
                                   private val seeMoreClickListener: SeeMoreClickListener
 ) : RecyclerView.Adapter<ViewHolderSeeMore>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderSeeMore {
@@ -26,16 +26,23 @@ class SeeMoreRecyclerViewAdapter (private var dataList: ArrayList<Results>, priv
     }
 
     override fun onBindViewHolder(holder: ViewHolderSeeMore, position: Int) {
-        holder.title.text = dataList[position].title
+
+        if (isMovies){
+            holder.title.text = dataList[position].title
+        }
+        else{
+            holder.title.text = dataList[position].name
+        }
+
         holder.desc.text = dataList[position].overview
 
         var iconName = dataList[position].poster_path
         val url = "https://image.tmdb.org/t/p/w500$iconName"
         Picasso.get().load(url).into(holder.icon)
 
-//        holder.rowFrame.setOnClickListener {
-//            recyclerViewItemClickListener.onClickedFrame(dataList[position].id, isMovie)
-//        }
+        holder.rowFrame.setOnClickListener {
+            seeMoreClickListener.onClickedFrame(dataList[position].id, isMovies)
+        }
     }
 }
 

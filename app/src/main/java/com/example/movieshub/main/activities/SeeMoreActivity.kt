@@ -10,8 +10,8 @@ import com.example.movieshub.main.helpers.Const
 import com.example.movieshub.main.interfaces.SeeMoreClickListener
 import com.example.movieshub.main.models.PopularMoviesTvModel
 import com.example.movieshub.main.models.Results
-import com.example.movieshub.main.services.retrofit.ApiClientPopMovie
-import com.example.movieshub.main.services.retrofit.ApiClientPopTV
+import com.example.movieshub.main.services.retrofit_client.ApiClientPopMovie
+import com.example.movieshub.main.services.retrofit_client.ApiClientPopTV
 import kotlinx.android.synthetic.main.activity_see_more.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,30 +24,34 @@ class SeeMoreActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_see_more)
-
+        seeMoreSwipeRefresh.isRefreshing = true
         loadPageContents()
+        seeMoreSwipeRefresh.isRefreshing = false
+
+        seeMoreSwipeRefresh?.setOnRefreshListener {
+            responseArr.clear()
+            loadPageContents()
+            seeMoreSwipeRefresh.isRefreshing = false
+        }
     }
 
     private fun loadPageContents() {
         val isMovie = intent.extras!!.getBoolean("isMovie")
         if (isMovie){
             getDataOfPopMovie(1)
-            getDataOfPopMovie(2)
-            getDataOfPopMovie(3)
+//            getDataOfPopMovie(2)
+//            getDataOfPopMovie(3)
         }
         else{
             getDataOfPopTV(1)
-            getDataOfPopTV(2)
-            getDataOfPopTV(3)
+//            getDataOfPopTV(2)
+//            getDataOfPopTV(3)
         }
-        //getDataOfPopMovie(2)
-        Toast.makeText(this@SeeMoreActivity,isMovie.toString(), Toast.LENGTH_SHORT).show()
-        Toast.makeText(this@SeeMoreActivity,responseArr.size.toString(), Toast.LENGTH_SHORT).show()
 
         seeMoreRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-        seeMoreRecyclerView.adapter = SeeMoreRecyclerViewAdapter(responseArr,this, object : SeeMoreClickListener {
+        seeMoreRecyclerView.adapter = SeeMoreRecyclerViewAdapter(responseArr, isMovie,this, object : SeeMoreClickListener {
             override fun onClickedFrame(id: Int, isMovie: Boolean) {
-                Toast.makeText(this@SeeMoreActivity,"Frame Clicked.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SeeMoreActivity,id.toString()+"\n"+isMovie.toString(), Toast.LENGTH_SHORT).show()
             }
         })
 

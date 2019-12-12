@@ -16,9 +16,8 @@ import com.example.movieshub.main.helpers.Const
 import com.example.movieshub.main.interfaces.RecyclerViewItemClickListener
 import com.example.movieshub.main.models.PopularMoviesTvModel
 import com.example.movieshub.main.models.Results
-import com.example.movieshub.main.services.retrofit.ApiClientPopMovie
-import com.example.movieshub.main.services.retrofit.ApiClientPopTV
-import kotlinx.android.synthetic.main.activity_login.*
+import com.example.movieshub.main.services.retrofit_client.ApiClientPopMovie
+import com.example.movieshub.main.services.retrofit_client.ApiClientPopTV
 import kotlinx.android.synthetic.main.fragment_popular.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -86,7 +85,7 @@ class PopularFragment : Fragment() {
         popularRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         popularRecyclerView.adapter = PopularMovieRecyclerViewAdapter(totalResponse,requireContext(), object : RecyclerViewItemClickListener {
             override fun onClickedFrame(id: Int, isMovie: Boolean) {
-                Toast.makeText(requireContext(),"Frame Clicked.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),id.toString()+"\n"+isMovie.toString(),Toast.LENGTH_SHORT).show()
 
             }
 
