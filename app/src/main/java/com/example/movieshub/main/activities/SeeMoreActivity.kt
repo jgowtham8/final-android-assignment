@@ -1,5 +1,6 @@
 package com.example.movieshub.main.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -51,7 +52,11 @@ class SeeMoreActivity : AppCompatActivity() {
         seeMoreRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         seeMoreRecyclerView.adapter = SeeMoreRecyclerViewAdapter(responseArr, isMovie,this, object : SeeMoreClickListener {
             override fun onClickedFrame(id: Int, isMovie: Boolean) {
-                Toast.makeText(this@SeeMoreActivity,id.toString()+"\n"+isMovie.toString(), Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@SeeMoreActivity,id.toString()+"\n"+isMovie.toString(), Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@SeeMoreActivity, DetailActivity::class.java)
+                intent.putExtra("id",id)
+                intent.putExtra("isMovie",isMovie)
+                startActivity(intent)
             }
         })
 

@@ -19,7 +19,7 @@ class MoviesAndTvModel(
     @SerializedName("poster_path") var poster_path : String? = null,
 //    @SerializedName("production_companies") val production_companies : List<Production_companies>,
 //    @SerializedName("production_countries") val production_countries : List<Production_countries>,
-//    @SerializedName("release_date") val release_date : String,
+    @SerializedName("release_date") var release_date : String? = null,
 //    @SerializedName("revenue") val revenue : Int,
 //    @SerializedName("runtime") val runtime : Int,
 //    @SerializedName("spoken_languages") val spoken_languages : List<Spoken_languages>,

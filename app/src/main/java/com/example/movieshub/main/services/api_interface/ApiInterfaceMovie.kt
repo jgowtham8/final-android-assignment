@@ -8,5 +8,5 @@ import retrofit2.http.Query
 
 interface ApiInterfaceMovie {
     @GET("movie/{movie_id}")
-    fun getInfo(@Path("movie_id") id: Int, @Query("api_key") apiKey: String): Call<MoviesAndTvModel>
+    fun getInfo(@Path("movie_id") movieID: Int, @Query("api_key") apiKey: String): Call<MoviesAndTvModel>
 }

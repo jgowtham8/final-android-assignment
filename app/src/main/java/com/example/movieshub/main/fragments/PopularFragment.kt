@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.movieshub.R
+import com.example.movieshub.main.activities.DetailActivity
 import com.example.movieshub.main.activities.SeeMoreActivity
 import com.example.movieshub.main.adapters.PopularMovieRecyclerViewAdapter
 import com.example.movieshub.main.helpers.Const
@@ -85,7 +86,11 @@ class PopularFragment : Fragment() {
         popularRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         popularRecyclerView.adapter = PopularMovieRecyclerViewAdapter(totalResponse,requireContext(), object : RecyclerViewItemClickListener {
             override fun onClickedFrame(id: Int, isMovie: Boolean) {
-                Toast.makeText(requireContext(),id.toString()+"\n"+isMovie.toString(),Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(),id.toString()+"\n"+isMovie.toString(),Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireContext(), DetailActivity::class.java)
+                intent.putExtra("id",id)
+                intent.putExtra("isMovie",isMovie)
+                startActivity(intent)
 
             }
 

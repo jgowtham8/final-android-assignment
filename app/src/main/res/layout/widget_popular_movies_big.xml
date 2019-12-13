@@ -44,14 +44,16 @@
 
                 <ImageView
                     android:id="@+id/movieIcon"
-                    android:layout_width="350dp"
+                    android:layout_width="match_parent"
                     android:layout_height="197dp"
                     android:src="@drawable/sample"
+                    android:scaleType="fitXY"
+                    android:adjustViewBounds="true"
                     android:contentDescription="No Image"/>
 
                 <Button
                     android:id="@+id/btnSeeMore"
-                    android:layout_width="350dp"
+                    android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/movieIcon"
                     android:background="#9000"
