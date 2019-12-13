@@ -1,13 +1,16 @@
 package com.example.movieshub.main.activities
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieshub.R
+import com.example.movieshub.main.adapters.ActorsRvAdapter
 import com.example.movieshub.main.helpers.Const
+import com.example.movieshub.main.models.ActorsModel
+import com.example.movieshub.main.models.Cast
 import com.example.movieshub.main.models.MoviesAndTvModel
-import com.example.movieshub.main.services.retrofit_client.ApiClientMovie
-import com.example.movieshub.main.services.retrofit_client.ApiClientPopTV
-import com.example.movieshub.main.services.retrofit_client.ApiClientTV
+import com.example.movieshub.main.services.retrofit_client.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
 import retrofit2.Call
@@ -15,6 +18,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class DetailActivity : AppCompatActivity() {
+
+
+    val context:Context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +30,13 @@ class DetailActivity : AppCompatActivity() {
         val id = intent.extras!!.getInt("id")
 
         loadData(id, isMovie)
+        loadActorData(id, isMovie)
+
+        detailSwipeRefresh?.setOnRefreshListener {
+            loadData(id, isMovie)
+            loadActorData(id, isMovie)
+            detailSwipeRefresh.isRefreshing = false
+        }
     }
 
     private fun loadData(id:Int, isMovie:Boolean) {
@@ -88,6 +101,41 @@ class DetailActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<MoviesAndTvModel>?, t: Throwable?) {
+                //loadingEffect.dismiss()
+            }
+
+        })
+    }
+
+//    private fun loadActorsRecyclerView(id:Int, isMovie:Boolean){
+//
+//        loadActorData(id, isMovie)
+//
+//    }
+
+    private fun loadActorData(id:Int, isMovie:Boolean) {
+
+        val call: Call<ActorsModel> = if (isMovie){
+            ApiClientActorsMovie.getClient.getInfo(id, Const.API_KEY)
+        }
+        else {
+            ApiClientActorsTV.getClient.getInfo(id, Const.API_KEY)
+        }
+
+        call.enqueue(object : Callback<ActorsModel> {
+
+            override fun onResponse(call: Call<ActorsModel>?, response: Response<ActorsModel>?) {
+                val actors = response?.body()!!
+                val responseArr = ArrayList<Cast>()
+                responseArr.clear()
+                for (actor in  actors.cast){
+                    responseArr.add(actor)
+                }
+                rvActors.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
+                rvActors.adapter = ActorsRvAdapter(responseArr,context)
+            }
+
+            override fun onFailure(call: Call<ActorsModel>?, t: Throwable?) {
                 //loadingEffect.dismiss()
             }
 

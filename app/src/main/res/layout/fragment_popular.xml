@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.fragments.PopularFragment">
+    tools:context=".main.fragments.PopularFragment"
+    android:background="@color/cardview_dark_background">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/popularSwipeRefresh"
