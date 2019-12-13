@@ -27,7 +27,8 @@ class SplashActivity : AppCompatActivity() {
         //splash time
         Handler().postDelayed({
             //start main activity
-            startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+//            startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+            startActivity(Intent(this@SplashActivity, DetailActivity::class.java))
             //finish this activity
             finish()
         },3000)
