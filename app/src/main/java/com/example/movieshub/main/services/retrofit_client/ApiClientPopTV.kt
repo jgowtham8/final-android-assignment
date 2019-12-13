@@ -1,6 +1,6 @@
 package com.example.movieshub.main.services.retrofit_client
 
-import com.example.movieshub.main.services.api_interface.ApiInterfacePopTV
+import com.example.movieshub.main.services.api_interface.ApiInterface
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClientPopTV {
     var BASE_URL:String="https://api.themoviedb.org/3/"
-    val getClient: ApiInterfacePopTV
+    val getClient: ApiInterface
         get() {
 
             val gson = GsonBuilder()
@@ -25,7 +25,7 @@ object ApiClientPopTV {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
-            return retrofit.create(ApiInterfacePopTV::class.java)
+            return retrofit.create(ApiInterface::class.java)
 
         }
 }

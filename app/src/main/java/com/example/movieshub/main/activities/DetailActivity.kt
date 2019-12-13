@@ -42,10 +42,10 @@ class DetailActivity : AppCompatActivity() {
     private fun loadData(id:Int, isMovie:Boolean) {
 
         val call: Call<MoviesAndTvModel> = if (isMovie){
-            ApiClientMovie.getClient.getInfo(id, Const.API_KEY)
+            ApiClientMovie.getClient.getInfoMovie(id, Const.API_KEY)
         }
         else {
-            ApiClientTV.getClient.getInfo(id, Const.API_KEY)
+            ApiClientTV.getClient.getInfoTV(id, Const.API_KEY)
         }
 
         call.enqueue(object : Callback<MoviesAndTvModel> {
@@ -116,10 +116,10 @@ class DetailActivity : AppCompatActivity() {
     private fun loadActorData(id:Int, isMovie:Boolean) {
 
         val call: Call<ActorsModel> = if (isMovie){
-            ApiClientActorsMovie.getClient.getInfo(id, Const.API_KEY)
+            ApiClientActorsMovie.getClient.getInfoActorsMovie(id, Const.API_KEY)
         }
         else {
-            ApiClientActorsTV.getClient.getInfo(id, Const.API_KEY)
+            ApiClientActorsTV.getClient.getInfoActorsTV(id, Const.API_KEY)
         }
 
         call.enqueue(object : Callback<ActorsModel> {

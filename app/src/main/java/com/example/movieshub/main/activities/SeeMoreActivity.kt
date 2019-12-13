@@ -63,7 +63,7 @@ class SeeMoreActivity : AppCompatActivity() {
     }
 
     private fun getDataOfPopMovie(pageNo:Int) {
-        val call: Call<PopularMoviesTvModel> = ApiClientPopMovie.getClient.getInfo(Const.API_KEY,pageNo)
+        val call: Call<PopularMoviesTvModel> = ApiClientPopMovie.getClient.getInfoPopMovie(Const.API_KEY,pageNo)
         call.enqueue(object : Callback<PopularMoviesTvModel> {
 
             override fun onResponse(call: Call<PopularMoviesTvModel>?, response: Response<PopularMoviesTvModel>?) {
@@ -86,7 +86,7 @@ class SeeMoreActivity : AppCompatActivity() {
     }
 
     private fun getDataOfPopTV(pageNo:Int) {
-        val call: Call<PopularMoviesTvModel> = ApiClientPopTV.getClient.getInfo(Const.API_KEY,pageNo)
+        val call: Call<PopularMoviesTvModel> = ApiClientPopTV.getClient.getInfoPopTV(Const.API_KEY,pageNo)
         call.enqueue(object : Callback<PopularMoviesTvModel> {
 
             override fun onResponse(call: Call<PopularMoviesTvModel>?, response: Response<PopularMoviesTvModel>?) {

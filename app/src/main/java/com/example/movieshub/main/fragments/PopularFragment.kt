@@ -120,7 +120,7 @@ class PopularFragment : Fragment() {
     }
 
     private fun getDataOfPopMovie() {
-        val call: Call<PopularMoviesTvModel> = ApiClientPopMovie.getClient.getInfo(Const.API_KEY,1)
+        val call: Call<PopularMoviesTvModel> = ApiClientPopMovie.getClient.getInfoPopMovie(Const.API_KEY,1)
         call.enqueue(object : Callback<PopularMoviesTvModel> {
 
             override fun onResponse(call: Call<PopularMoviesTvModel>?, response: Response<PopularMoviesTvModel>?) {
@@ -143,7 +143,7 @@ class PopularFragment : Fragment() {
     }
 
     private fun getDataOfPopTV() {
-        val call: Call<PopularMoviesTvModel> = ApiClientPopTV.getClient.getInfo(Const.API_KEY,1)
+        val call: Call<PopularMoviesTvModel> = ApiClientPopTV.getClient.getInfoPopTV(Const.API_KEY,1)
         call.enqueue(object : Callback<PopularMoviesTvModel> {
 
             override fun onResponse(call: Call<PopularMoviesTvModel>?, response: Response<PopularMoviesTvModel>?) {
